@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import CoreData
 
 
 class homeViewModel:ObservableObject{
@@ -17,13 +18,43 @@ class homeViewModel:ObservableObject{
     @Published var showAnnimation:Bool = false
     @Published var toggleScreen:Int = 0
     @Published var colorSet:Color = Color.myTheme.mainColor
+    @Published var bankData:[Spends] = []
+    private var dataSet = savingDataService()
+    let dataManager = savingDataService()
     
     init(){
         countStatAmount()
         countHomeStatAmount()
+//        setBankDetailsData()
     }
-    
-    private func countStatAmount(){
+//    func fetchData(){
+//        let request = NSFetchRequest<Spends>(entityName: "Spends")
+//        do{
+//         saveEntity = try container.viewContext.fetch(request)
+//        } catch{
+//            print("Error fetching..\(error)")
+//        }
+//    }
+//    
+//    func addData(bankBlance:Double){
+//        
+//        let newBankBalance = Spends(context: container.viewContext)
+//        newBankBalance.bankSaving = bankBlance
+//        saveData()
+//        
+//        
+//    }
+//    
+//   
+//    
+//    func delete(offSets:Spends?){
+//        guard let index = offSets?.bankSaving else { return }
+//        guard let entity = saveEntity.first else { return }
+//        container.viewContext.delete(entity)
+//        saveData()
+//        
+//    }
+        private func countStatAmount(){
         let stat = 1 - ((10000.0 - 600.0)/10000)
         statAmount = stat
         
@@ -41,4 +72,10 @@ class homeViewModel:ObservableObject{
             colorSet =  Color.myTheme.homeExpences2
         }
     }
+    
+//    private func setBankDetailsData(){
+//        var newDataSet = dataSet.saveEntity
+//        newDataSet = bankData
+//        
+//    }
 }

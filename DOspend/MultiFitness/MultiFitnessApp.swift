@@ -10,12 +10,30 @@ import SwiftUI
 @main
 struct MultiFitnessApp: App {
     @StateObject private var viewModel = homeViewModel()
+    @State private var showMainMenu:Bool = true
     var body: some Scene {
         WindowGroup {
-            homeView()
-                .environmentObject(viewModel)
+            ZStack{
+                if showMainMenu == true{
+                    SplashScreen()
+                        .transition(.move(edge: .leading))
+                        .onAppear{
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2){
+                                showMainMenu.toggle()
+                            }
+                        }
+                        
+                  
+                }
+                else{
+                    homeView()
+                        .environmentObject(viewModel)
+                        .preferredColorScheme(.light)
+                }
+            }
+          
+            
            
-                .preferredColorScheme(.light)
         }
     }
 }
